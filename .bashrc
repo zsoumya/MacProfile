@@ -1,0 +1,44 @@
+txtblk='\e[0;30m' # Black - Regular
+txtred='\e[0;31m' # Red - Regular
+txtgrn='\e[0;32m' # Green - Regular
+txtylw='\e[0;33m' # Yellow - Regular
+txtblu='\e[0;34m' # Blue - Regular
+txtpur='\e[0;35m' # Purple - Regular
+txtcyn='\e[0;36m' # Cyan - Regular
+txtwht='\e[0;37m' # White - Regular
+bldblk='\e[1;30m' # Black - Bold
+bldred='\e[1;31m' # Red - Bold
+bldgrn='\e[1;32m' # Green - Bold
+bldylw='\e[1;33m' # Yellow - Bold
+bldblu='\e[1;34m' # Blue - Bold
+bldpur='\e[1;35m' # Purple - Bold
+bldcyn='\e[1;36m' # Cyan - Bold
+bldwht='\e[1;37m' # White - Bold
+unkblk='\e[4;30m' # Black - Underline
+undred='\e[4;31m' # Red - Underline
+undgrn='\e[4;32m' # Green - Underline
+undylw='\e[4;33m' # Yellow - Underline
+undblu='\e[4;34m' # Blue - Underline
+undpur='\e[4;35m' # Purple - Underline
+undcyn='\e[4;36m' # Cyan - Underline
+undwht='\e[4;37m' # White - Underline
+bakblk='\e[40m'   # Black - Background
+bakred='\e[41m'   # Red - Background
+badgrn='\e[42m'   # Green - Background
+bakylw='\e[43m'   # Yellow - Background
+bakblu='\e[44m'   # Blue - Background
+bakpur='\e[45m'   # Purple - Background
+bakcyn='\e[46m'   # Cyan - Background
+bakwht='\e[47m'   # White - Background
+txtrst='\e[0m'    # Text Reset - Useful for avoiding color bleed
+
+export PS1="\[$bldgrn\]\u@\h\w$ \[$txtrst\]"
+
+export PATH="/usr/local/sbin:/usr/local/bin:$PATH"
+#export PS1="\[\e[31m\]\u\[\e[m\]@\[\e[32m\]\h\[\e[m\]:\[\e[33;40m\]\w\[\e[m\]"
+export PS1="\[$bldgrn\]\u\[$txtrst\]@\[$bldred\]\h\[$txtrst\]:\[$bldylw\]\w\[$txtrst\]\n$ "
+
+alias cls='clear'
+alias l='ls -CF'
+alias la='ls -A'
+alias ll='ls -alF'

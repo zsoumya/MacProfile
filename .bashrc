@@ -32,9 +32,9 @@ bakcyn='\e[46m'   # Cyan - Background
 bakwht='\e[47m'   # White - Background
 txtrst='\e[0m'    # Text Reset - Useful for avoiding color bleed
 
-export PS1="\[$bldgrn\]\u@\h\w$ \[$txtrst\]"
-
 export PATH="/usr/local/sbin:/usr/local/bin:$PATH"
+
+#export PS1="\[$bldgrn\]\u@\h\w$ \[$txtrst\]"
 #export PS1="\[\e[31m\]\u\[\e[m\]@\[\e[32m\]\h\[\e[m\]:\[\e[33;40m\]\w\[\e[m\]"
 export PS1="\[$bldgrn\]\u\[$txtrst\]@\[$bldred\]\h\[$txtrst\]:\[$bldylw\]\w\[$txtrst\]\n$ "
 

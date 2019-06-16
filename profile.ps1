@@ -1,39 +1,63 @@
+Set-StrictMode -Version Latest
+
+class MyConsoleColors
+{
+    static [string] $FGBlack = "$([char] 27)[0;30m"         # Black - Regular
+    static [string] $FGRed = "$([char] 27)[0;31m"           # Red - Regular
+    static [string] $FGGreen = "$([char] 27)[0;32m"         # Green - Regular
+    static [string] $FGYellow = "$([char] 27)[0;33m"        # Yellow - Regular
+    static [string] $FGBlue = "$([char] 27)[0;34m"          # Blue - Regular
+    static [string] $FGPurple = "$([char] 27)[0;35m"        # Purple - Regular
+    static [string] $FGCyan = "$([char] 27)[0;36m"          # Cyan - Regular
+    static [string] $FGWhite = "$([char] 27)[0;37m"         # White - Regular
+    static [string] $FGBlackBold = "$([char] 27)[1;30m"     # Black - Bold
+    static [string] $FGRedBold = "$([char] 27)[1;31m"       # Red - Bold
+    static [string] $FGGreenBold = "$([char] 27)[1;32m"     # Green - Bold
+    static [string] $FGYellowBold = "$([char] 27)[1;33m"    # Yellow - Bold
+    static [string] $FGBlueBold = "$([char] 27)[1;34m"      # Blue - Bold
+    static [string] $FGPurpleBold = "$([char] 27)[1;35m"    # Purple - Bold
+    static [string] $FGCyanBold = "$([char] 27)[1;36m"      # Cyan - Bold
+    static [string] $FGWhiteBold = "$([char] 27)[1;37m"     # White - Bold
+    static [string] $FGBlackUL = "$([char] 27)[4;30m"       # Black - Underline
+    static [string] $FGRedUL = "$([char] 27)[4;31m"         # Red - Underline
+    static [string] $FGGreenUL = "$([char] 27)[4;32m"       # Green - Underline
+    static [string] $FGYellowUL = "$([char] 27)[4;33m"      # Yellow - Underline
+    static [string] $FGBlueUL = "$([char] 27)[4;34m"        # Blue - Underline
+    static [string] $FGPurpleUL = "$([char] 27)[4;35m"      # Purple - Underline
+    static [string] $FGCyanUL = "$([char] 27)[4;36m"        # Cyan - Underline
+    static [string] $FGWhiteUL = "$([char] 27)[4;37m"       # White - Underline
+    static [string] $BGBlack = "$([char] 27)[40m"           # Black - Background
+    static [string] $BGRed = "$([char] 27)[41m"             # Red - Background
+    static [string] $BGGreen = "$([char] 27)[42m"           # Green - Background
+    static [string] $BGYellow = "$([char] 27)[43m"          # Yellow - Background
+    static [string] $BGBlue = "$([char] 27)[44m"            # Blue - Background
+    static [string] $BGPurple = "$([char] 27)[45m"          # Purple - Background
+    static [string] $BGCyan = "$([char] 27)[46m"            # Cyan - Background
+    static [string] $BGWhite = "$([char] 27)[47m"           # White - Background
+    static [string] $Reset = "$([char] 27)[0m"              # Text Reset - Useful for avoiding color bleed
+}
+
 function Prompt {
-    $esc = [char] 27
+    $userName = [System.Environment]::UserName
+    $computerName = [System.Environment]::MachineName
+    $currentPath = [System.Text.RegularExpressions.Regex]::Replace( `
+            $executionContext.SessionState.Path.CurrentLocation.Path, `
+            $HOME, '~', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+    $promptString = ('$' * ($nestedPromptLevel + 1)) + ' '
+    $newLine = [System.Environment]::NewLine
 
-    $txtblk = "$esc[0;30m" # Black - Regular
-    $txtred = "$esc[0;31m" # Red - Regular
-    $txtgrn = "$esc[0;32m" # Green - Regular
-    $txtylw = "$esc[0;33m" # Yellow - Regular
-    $txtblu = "$esc[0;34m" # Blue - Regular
-    $txtpur = "$esc[0;35m" # Purple - Regular
-    $txtcyn = "$esc[0;36m" # Cyan - Regular
-    $txtwht = "$esc[0;37m" # White - Regular
-    $bldblk = "$esc[1;30m" # Black - Bold
-    $bldred = "$esc[1;31m" # Red - Bold
-    $bldgrn = "$esc[1;32m" # Green - Bold
-    $bldylw = "$esc[1;33m" # Yellow - Bold
-    $bldblu = "$esc[1;34m" # Blue - Bold
-    $bldpur = "$esc[1;35m" # Purple - Bold
-    $bldcyn = "$esc[1;36m" # Cyan - Bold
-    $bldwht = "$esc[1;37m" # White - Bold
-    $unkblk = "$esc[4;30m" # Black - Underline
-    $undred = "$esc[4;31m" # Red - Underline
-    $undgrn = "$esc[4;32m" # Green - Underline
-    $undylw = "$esc[4;33m" # Yellow - Underline
-    $undblu = "$esc[4;34m" # Blue - Underline
-    $undpur = "$esc[4;35m" # Purple - Underline
-    $undcyn = "$esc[4;36m" # Cyan - Underline
-    $undwht = "$esc[4;37m" # White - Underline
-    $bakblk = "$esc[40m"   # Black - Background
-    $bakred = "$esc[41m"   # Red - Background
-    $badgrn = "$esc[42m"   # Green - Background
-    $bakylw = "$esc[43m"   # Yellow - Background
-    $bakblu = "$esc[44m"   # Blue - Background
-    $bakpur = "$esc[45m"   # Purple - Background
-    $bakcyn = "$esc[46m"   # Cyan - Background
-    $bakwht = "$esc[47m"   # White - Background
-    $txtrst = "$esc[0m"    # Text Reset - Useful for avoiding color bleed
+    return `
+        $(colorize $([MyConsoleColors]::FGWhite) "PWSH [") + `
+        $(colorize $([MyConsoleColors]::FGRedBold) $userName) + `
+        $(colorize $([MyConsoleColors]::Reset) "@") + `
+        $(colorize $([MyConsoleColors]::FGGreenBold) $computerName) + `
+        $(colorize $([MyConsoleColors]::Reset) "] ") + `
+        $(colorize $([MyConsoleColors]::FGYellowBold) $currentPath) + `
+        $(colorize $([MyConsoleColors]::Reset) $newLine) + `
+        $(colorize $([MyConsoleColors]::FGWhite) $promptString)
+}
 
-    return "$($txtrst)PS $($bldgrn)$env:USER$($txtrst)@$($bldred)$([System.Environment]::MachineName)$($txtrst):$($bldylw)$($executionContext.SessionState.Path.CurrentLocation)$($bldgrn)$([System.Environment]::NewLine)$('>' * ($nestedPromptLevel + 1)) $($txtrst)"
+function colorize([string] $color, [string] $text, [string] $resetColor = [MyConsoleColors]::Reset) {
+    $colorizedText = "$color$text$resetColor"
+    return $colorizedText
 }
